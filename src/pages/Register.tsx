@@ -70,7 +70,7 @@ const Register = () => {
         </div>
 
         {/* Right */}
-        <div className="max-w-xl w-full">
+        <div className="max-w-xl w-full mx-auto">
           <h1 className="text-5xl font-semibold text-gray-800">
             Sign up
           </h1>
