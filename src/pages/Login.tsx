@@ -121,6 +121,7 @@ const Login = () => {
         message: "Invalid verification code. Please try again.",
       });
       setOtpValue("code", "");
+      setIsVerifying(false)
       return;
     }
 
@@ -128,7 +129,6 @@ const Login = () => {
       const result = await dispatch(checkUserAfterOtp(mobileNumber)).unwrap();
       navigate(result.exists ? "/" : "/register");
     } catch (error) {
-      console.log(error)
       setError("code", {
         message: typeof error === "string"
           ? error
@@ -235,7 +235,7 @@ const Login = () => {
           void verifyOtp(code);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
 
     return () => abortController.abort();
   }, [otpSent, setOtpValue, verifyOtp]);
@@ -278,11 +278,10 @@ const Login = () => {
                         <input
                           type="tel"
                           {...registerPhone("mobileNumber")}
-                          className={`h-16 w-full rounded-md border px-5 text-lg outline-none ${
-                            phoneErrors.mobileNumber
+                          className={`h-16 w-full rounded-md border px-5 text-lg outline-none ${phoneErrors.mobileNumber
                               ? "border-red-500"
                               : "border-gray-400 focus:border-indigo-500"
-                          }`}
+                            }`}
                         />
                       </div>
 
@@ -357,11 +356,10 @@ const Login = () => {
                           maxLength={6}
                           value={otpCode}
                           onChange={handleOtpChange}
-                          className={`h-16 w-full rounded-md border px-5 text-lg tracking-[0.4em] outline-none ${
-                            otpErrors.code
+                          className={`h-16 w-full rounded-md border px-5 text-lg tracking-[0.4em] outline-none ${otpErrors.code
                               ? "border-red-500"
                               : "border-gray-400 focus:border-indigo-500"
-                          }`}
+                            }`}
                         />
                       </div>
 
