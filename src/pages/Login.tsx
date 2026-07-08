@@ -128,6 +128,7 @@ const Login = () => {
       const result = await dispatch(checkUserAfterOtp(mobileNumber)).unwrap();
       navigate(result.exists ? "/" : "/register");
     } catch (error) {
+      console.log(error)
       setError("code", {
         message: typeof error === "string"
           ? error

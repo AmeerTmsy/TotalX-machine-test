@@ -59,7 +59,8 @@ export const checkUserAfterOtp = createAsyncThunk(
         user,
         mobileNumber: formatMobileNumber(mobileNumber),
       }
-    } catch {
+    } catch (error) {
+      console.error("checkUserAfterOtp failed in loginSlice:", error)
       return rejectWithValue('Could not check if the user exists. Please try again.')
     }
   }
@@ -87,7 +88,8 @@ export const registerUserInDb = createAsyncThunk(
       })
 
       return user
-    } catch {
+    } catch (error) {
+      console.error("registerUserInDb failed in loginSlice:", error)
       return rejectWithValue('Could not create your account. Please try again.')
     }
   }

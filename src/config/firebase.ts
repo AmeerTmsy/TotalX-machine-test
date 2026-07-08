@@ -16,10 +16,18 @@ const messagingSenderId = getEnv(import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_
 const appId = getEnv(import.meta.env.VITE_FIREBASE_APP_ID);
 const measurementId = getEnv(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID);
 
-if (!apiKey) {
+const missingKeys: string[] = [];
+if (!apiKey) missingKeys.push("VITE_FIREBASE_API_KEY");
+if (!authDomain) missingKeys.push("VITE_FIREBASE_AUTH_DOMAIN");
+if (!projectId) missingKeys.push("VITE_FIREBASE_PROJECT_ID");
+if (!storageBucket) missingKeys.push("VITE_FIREBASE_STORAGE_BUCKET");
+if (!messagingSenderId) missingKeys.push("VITE_FIREBASE_MESSAGING_SENDER_ID");
+if (!appId) missingKeys.push("VITE_FIREBASE_APP_ID");
+
+if (missingKeys.length > 0) {
   console.error(
-    "Firebase API Key is missing! Please check your Vercel Environment Variables: " +
-    "ensure they have the 'VITE_' prefix (e.g., VITE_FIREBASE_API_KEY) and that you redeployed the app."
+    `Firebase Configuration Error: The following environment variables are missing: ${missingKeys.join(", ")}. ` +
+    "Please add them to your Vercel Environment Variables and redeploy the application."
   );
 }
 
